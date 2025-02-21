@@ -1,1 +1,2 @@
-# 17.LLM_RAG_MS4M
+# LLM Chatbot Local
+Este es un proyecto de chatbot basado en modelos de lenguaje (LLM) y RAG (Retrieval-Augmented Generation).

@@ -1,0 +1,65 @@
+# 1. Descargar Ollama de la pagina oficial
+https://ollama.com/download
+
+# 2. Inizializar el Servidor del Modelo
+
+#2.1 Antes verificar que el puerto este libre o si se esta utilizando
+C:\Users\BryanInche-MS4M>netstat -ano | findstr :11434
+
+#2.2 Si el puerto esta ocupado ver si es de Ollama, y finalizarlo , para luego iniciar de nuevo
+C:\Users\BryanInche-MS4M>tasklist /FI "PID eq 38352"
+C:\Users\BryanInche-MS4M>taskkill /PID 38352 /F
+SUCCESS: The process with PID 38352 has been terminated.
+
+#2.3 Verifica de nuevo si el puerto esta ocupado
+C:\Users\BryanInche-MS4M>netstat -ano | findstr :11434
+
+# 2.4 Finalmente inicia el servidor de Ollama
+C:\Users\BryanInche-MS4M>ollama serve
+
+
+
+# 3.Descargar modelos 
+C:\Users\BryanInche-MS4M>ollama pull llama3
+C:\Users\BryanInche-MS4M>ollama pull mistral
+
+# 4.Listar los modelos que se han instalado
+ollama list
+
+# 5. Ejecutar un modelo en especifico
+ollama run mistral
+
+
+# 6. Intalar Poetry para manejar dependencias de las librerias
+(base) PS C:\Ollama_llm> (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
+
+#6.1 Agregar Poetry a variables del Sistema y validar que si esta funcionando
+(base) PS C:\Ollama_llm> poetry --version
+Poetry (version 2.1.1)
+
+#6.2 para instalar la nueva dependencia
+poetry install
+
+# Ver las dependencias que hemos instalado en el entorno de Poetry
+poetry show 
+
+#6.3 ejecutar el proyecto de LLM en poetry terminal de maquina 
+poetry run python chat1_llm.py
+
+# 6.4 Verificar si estas en tu entorno virtual de tu proyecto
+ C:\Ollama_llm> poetry env info
+
+# 6.5 Ver la lista de entornos virtuales creados
+(base) PS C:\Ollama_llm> poetry env list
+llm-chatbot-local-FBSaTYm_-py3.11 (Activated)
+
+# 6.6 En caso quiero agregar una nueva librería, entonces debemos primero actualizar lock
+(base) PS C:\Ollama_llm> poetry lock
+
+# 6.6. Luego de actulizar lock, debemos de nuevo vuelvo a instalar 
+poetry install
+
+# Volver a ejecutar la Api 
+poetry run python chat1_llm.py
+
+
