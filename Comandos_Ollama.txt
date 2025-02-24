@@ -62,4 +62,22 @@ poetry install
 # Volver a ejecutar la Api 
 poetry run python chat1_llm.py
 
+## 7. Construir la API del RAG con FastApi y Unvicorn en pyhton
+
+# Es necesario que crees una api.py y luego modifiques tu codigo principal
+
+#Ejecuta la Api con uvicorn
+C:\Ollama_llm> poetry run uvicorn api:app --reload
+
+## 7.1 Validar que la Api este funcionando
+C:\Users\BryanInche-MS4M>curl -X POST "http://localhost:8000/respuesta_llm" -H "Content-Type: application/json" -d "{\"question\": \"¿Qué es MS4M?\"}"
+
+### En Postman con un metodo POST
+http://localhost:8000/respuesta_llm
+{
+  "question": "Que es D4M"
+}
+
+
+
 
