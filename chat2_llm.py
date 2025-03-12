@@ -4,7 +4,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import Chroma
-from cargar_data import cargar_documentos, crear_vectorstore
+from cargar_solodata import cargar_documentos, crear_vectorstore
 #from langchain_community.vectorstores import PGVector
 
 def iniciar_llm_chat(ruta_files):
@@ -18,8 +18,8 @@ def iniciar_llm_chat(ruta_files):
     try:
         vs_ms4m = Chroma(
             embedding_function=embeding_modelo,
-            persist_directory="chroma_ms4m_basedatos",
-            collection_name="data_ms4m_despacho"
+            persist_directory="1chroma_ms4m_bd_vfche",
+            collection_name="1data_ms4m_vfche"
         )
     except Exception as e:
         print(f"No se pudo cargar el vector store existente: {e}")

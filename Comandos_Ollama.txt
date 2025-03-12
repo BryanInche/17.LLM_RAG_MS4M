@@ -8,6 +8,7 @@ C:\Users\BryanInche-MS4M>netstat -ano | findstr :11434
 
 #2.2 Si el puerto esta ocupado ver si es de Ollama, y finalizarlo , para luego iniciar de nuevo
 C:\Users\BryanInche-MS4M>tasklist /FI "PID eq 38352"
+
 C:\Users\BryanInche-MS4M>taskkill /PID 38352 /F
 SUCCESS: The process with PID 38352 has been terminated.
 
@@ -37,8 +38,19 @@ ollama run mistral
 (base) PS C:\Ollama_llm> poetry --version
 Poetry (version 2.1.1)
 
-#6.2 para instalar la nueva dependencia
+## 6.1.1 Crear un entorno virtual con Poetry con una versión de Python en especifico
+poetry env use 3.13
+
+### 6.1.2 Verificar que entorno virtual estamos usando de poetry
+poetry env info
+
+
+#6.2 para instalar las nueva dependencia del toml
 poetry install
+
+
+## 6.2.3 Forzar la instalación de alguna librería que no se logro instalar
+poetry run pip install uvicorn
 
 # Ver las dependencias que hemos instalado en el entorno de Poetry
 poetry show 
@@ -77,6 +89,64 @@ http://localhost:8000/respuesta_llm
 {
   "question": "Que es D4M"
 }
+
+## Importante:
+Si deseas agregar nuevos documentos al RAG, se debe ejecutar los códigos en este orden.
+- 1. Debes ejecutar cargar_solodata.py para cargar los documentos y crear/actualizar el vector store.
+
+- 2. Ejecutas api.py para iniciar la API y poder hacer consultas.
+
+Nota: uvicorn api:app --reload  # Para reiniciar el servidor de uvicorn que ayuda al Backend
+
+## 8. Creación de un Frontend con REACT
+
+## 8.1 Instalar Create React App
+npm install -g create-react-app
+
+## Crea una nueva aplicación React llamada llm-chatbot-frontend 
+npx create-react-app llm-chatbot-frontend
+
+## Ejecuta la aplicación
+npm start
+
+## 9. Creación del Docker para el Backend y el Frotend
+## Solo reconstruir las imágenes (si no quieres iniciar los contenedores):
+docker-compose build
+
+##Primera vez o después de cambios en los Dockerfile:
+docker-compose up --build
+
+##Reiniciar los servicios sin reconstruir las imágenes (si no hay cambios en los Dockerfile):
+docker-compose up
+
+## Detener y eliminar los contenedores
+docker-compose down
+
+
+##Verificar las imágenes desde Docker Compose
+docker-compose images
+
+
+## ejecutar los contenedores para que tu aplicación esté en funcionamiento
+docker-compose up
+
+
+## DESPLIEGUE DE API por medio de IP maquina al mismo red de la empresa
+
+## Iniciar el Backend
+python api.py
+##Nota: Lo que se agrega o modifica es allow_origins=["http://localhost:3000", "http://192.168.14.24:3000"] #Debes agregar el ip Adaptador de LAN inalámbrica Wi-Fi, para que 
+permita solicitudes de este origen(front)
+
+#Incializar el Frontend
+# Inicia el servidor de desarrollo para aceptar conexiones externas Frontend
+set HOST=192.168.14.24&& npm start (Usamos la Ip  LAN inalámbrica Wi-Fi)
+
+Modificar o cambia esto 
+#URL del backend en el frontend
+: const res = await fetch('http://192.168.14.24:8000/respuesta_llm', {
+
+
 
 
 
